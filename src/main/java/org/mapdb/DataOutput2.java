@@ -29,12 +29,17 @@ import java.util.Arrays;
  */
 public final class DataOutput2 implements DataOutput {
 
-    byte[] buf;
-    int pos;
+    public byte[] buf;
+    public int pos;
 
     public DataOutput2(){
         pos = 0;
         buf = new byte[16]; //TODO take hint from serializer for initial size
+    }
+
+    public DataOutput2(byte[] buf){
+        pos=0;
+        this.buf = buf;
     }
 
     public byte[] copyBytes(){
@@ -44,7 +49,7 @@ public final class DataOutput2 implements DataOutput {
     /**
      * make sure there will be enought space in buffer to write N bytes
      */
-    private void ensureAvail(final int n) {
+    public void ensureAvail(final int n) {
         if (pos + n >= buf.length) {
             int newSize = Math.max(pos + n, buf.length * 2);
             buf = Arrays.copyOf(buf, newSize);
